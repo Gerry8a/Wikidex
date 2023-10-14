@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/pokemonListFragment">
+
+    <fragment
+        android:id="@+id/pokemonListFragment"
+        android:name="com.gochoa.wikidex.presentation.pokemon.PokemonListFragment"
+        android:label="fragment_pokemon_list"
+        tools:layout="@layout/fragment_pokemon_list" />
+    <fragment
+        android:id="@+id/locationFragment"
+        android:name="com.gochoa.wikidex.presentation.location.LocationFragment"
+        android:label="fragment_location"
+        tools:layout="@layout/fragment_location" />
+</navigation>
