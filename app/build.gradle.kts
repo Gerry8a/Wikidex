@@ -98,4 +98,7 @@ dependencies {
     implementation("androidx.paging:paging-runtime-ktx:$paging_version")
     implementation("androidx.paging:paging-common-ktx:$paging_version")
 
+    //AvatarView
+    implementation ("io.getstream:avatarview-coil:1.0.7")
+
 }

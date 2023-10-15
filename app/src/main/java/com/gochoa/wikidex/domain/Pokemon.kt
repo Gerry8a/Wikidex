@@ -5,5 +5,6 @@ data class Pokemon(
     val name: String?,
     val order: Int?,
     val weight: Int?,
-    var isFavorite: Boolean?
+    var isFavorite: Boolean?,
+    val urlImage: String? = null
 )

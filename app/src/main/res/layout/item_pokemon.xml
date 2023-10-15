@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/parent"
     android:layout_width="match_parent"
-    android:padding="4dp"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="4dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvTask"
@@ -20,17 +20,26 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
+            <io.getstream.avatarview.AvatarView
                 android:id="@+id/ivPokemon"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/ic_color_pokeball"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
                 android:layout_marginStart="32dp"
+                app:avatarViewErrorPlaceholder="@drawable/ic_color_pokeball"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
+                app:avatarViewBorderColor="@color/white"
+                app:avatarViewBorderWidth="3dp"
+                app:avatarViewIndicatorBorderColor="@color/white"
+                app:avatarViewIndicatorBorderSizeCriteria="10"
+                app:avatarViewIndicatorPosition="bottomRight"
+                app:avatarViewIndicatorSizeCriteria="9"
+                app:avatarViewInitialsTextStyle="bold"
+                app:avatarViewShape="circle"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
 
             <TextView
                 android:id="@+id/tvName"
@@ -38,13 +47,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="32dp"
-                tools:text="Pikachu"
                 android:fontFamily="@font/press_start_regular"
                 app:layout_constraintBottom_toBottomOf="@+id/ivPokemon"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/ivPokemon"
-                app:layout_constraintTop_toTopOf="@+id/ivPokemon" />
+                app:layout_constraintTop_toTopOf="@+id/ivPokemon"
+                tools:text="Pikachu" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
