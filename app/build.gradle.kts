@@ -100,5 +100,6 @@ dependencies {
 
     //AvatarView
     implementation ("io.getstream:avatarview-coil:1.0.7")
-
+    //Lottie
+    implementation ("com.airbnb.android:lottie:3.4.0")
 }

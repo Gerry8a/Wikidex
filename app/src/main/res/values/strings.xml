@@ -4,4 +4,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="Pokemon">Pokemon</string>
     <string name="location">Ubicación\n</string>
+    <string name="id_pokemon">#%s</string>
+    <string name="detail_pokemon">Peso: %s km \\nAltura: %s m\n</string>
 </resources>

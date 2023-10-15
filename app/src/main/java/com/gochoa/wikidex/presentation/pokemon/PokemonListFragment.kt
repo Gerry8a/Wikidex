@@ -5,9 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.gochoa.wikidex.R
 import com.gochoa.wikidex.data.remote.ApiResponseStatus
 import com.gochoa.wikidex.databinding.FragmentPokemonListBinding
 import com.gochoa.wikidex.domain.Pokemon
@@ -32,7 +36,10 @@ class PokemonListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        buildObservers()
+    }
 
+    private fun buildObservers() {
         viewModel.status.observe(requireActivity()) {
             when (it) {
                 is ApiResponseStatus.Error -> Toast.makeText(
@@ -51,13 +58,13 @@ class PokemonListFragment : Fragment() {
 
     private fun fillData(listPokemon: List<Pokemon>) {
         pokemonAdapter = PokemonAdapter(listPokemon, onItemSelected = {
-            Toast.makeText(requireContext(), it.name, Toast.LENGTH_SHORT).show()
+            val bundle = bundleOf("pokemonName" to it.name)
+            view?.findNavController()
+                ?.navigate(R.id.action_pokemonListFragment_to_detailPokemonFragment, bundle)
         })
         binding.rvPokemon.apply {
             adapter = pokemonAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
     }
-
-
 }
