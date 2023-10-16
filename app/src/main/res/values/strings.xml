@@ -5,7 +5,8 @@
     <string name="Pokemon">Pokemon</string>
     <string name="location">Ubicación\n</string>
     <string name="id_pokemon">#%s</string>
-    <string name="detail_pokemon">Peso: %s km \\nAltura: %s m\n</string>
+    <string name="detail_pokemon">Peso: %s lbs \n\nAltura: %s inc</string>
     <string name="date_format">"dd/MM/yyyy" HH:mm</string>
     <string name="date_created">Creado el %s</string>
+    <string name="pokemon_number">#%s</string>
 </resources>

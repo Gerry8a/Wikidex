@@ -23,14 +23,29 @@ class Mapper {
     }
 
     private fun fromDTOToModel(namePokemon: String, result: PokemonResponse): Pokemon {
-        return Pokemon(
-            result.id,
-            namePokemon,
-            result.weight,
-            null,
-            false,
-            null
-        )
+        val types = result.types.size
+        if (types > 1) {
+            return Pokemon(
+                result.id,
+                namePokemon,
+                result.weight,
+                result.height,
+                false,
+                result.sprites.front_default,
+                result.types[0].type.name,
+                result.types[1].type.name,
+            )
+        } else {
+            return Pokemon(
+                result.id,
+                namePokemon,
+                result.weight,
+                result.height,
+                false,
+                result.sprites.front_default,
+                result.types[0].type.name
+            )
+        }
     }
 
     fun fromResponseToModel(name: String, result: PokemonResponse): Pokemon {

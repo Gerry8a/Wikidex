@@ -9,10 +9,12 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import coil.load
 import com.gochoa.wikidex.R
 import com.gochoa.wikidex.data.remote.ApiResponseStatus
 import com.gochoa.wikidex.databinding.FragmentDetailPokemonBinding
 import com.gochoa.wikidex.domain.model.Pokemon
+import com.gochoa.wikidex.utils.Utils.getTypes
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -45,7 +47,7 @@ class DetailPokemonFragment : Fragment() {
             when (it) {
                 is ApiResponseStatus.Error -> {
                     binding.loading.root.visibility = View.GONE
-                    Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), it.messageID, Toast.LENGTH_SHORT).show()
                 }
 
                 is ApiResponseStatus.Loading -> {
@@ -68,8 +70,11 @@ class DetailPokemonFragment : Fragment() {
             ivPokemon.isVisible = true
             tvType.isVisible = true
             tvPokemonName.text = data.name
-            tvId.text = data.id.toString()
-            tvInfo.text = data.weight.toString()
+            tvId.text = getString(R.string.pokemon_number, data.id.toString())
+            tvInfo.text =
+                getString(R.string.detail_pokemon, data.weight.toString(), data.height.toString())
+            ivPokemon.load(data.urlImage)
+            tvInfo.text = getTypes(data.fistType, data.secondType)
         }
     }
 

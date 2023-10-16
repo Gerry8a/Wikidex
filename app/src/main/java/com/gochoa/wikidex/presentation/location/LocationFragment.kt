@@ -22,7 +22,7 @@ import com.gochoa.wikidex.data.service.LocationClient
 import com.gochoa.wikidex.databinding.FragmentLocationBinding
 import com.gochoa.wikidex.domain.model.Marker
 import com.gochoa.wikidex.presentation.location.adapter.LocationAdapter
-import com.gochoa.wikidex.utils.DateFormatted.getDate
+import com.gochoa.wikidex.utils.Utils.getDate
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory

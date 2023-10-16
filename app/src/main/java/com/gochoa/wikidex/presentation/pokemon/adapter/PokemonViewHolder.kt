@@ -27,6 +27,8 @@ class PokemonViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             )
         }
 
+        binding.ivPokemon.loadImage(pokemon.urlImage)
+
         binding.tvName.text = pokemon.name
         binding.parent.setOnClickListener {
             onItemSelected(pokemon)
