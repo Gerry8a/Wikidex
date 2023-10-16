@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gochoa.wikidex.data.local.entity.PokemonEntity
 import com.gochoa.wikidex.data.remote.ApiResponseStatus
+import com.gochoa.wikidex.data.remote.response.Result
 import com.gochoa.wikidex.data.repositoryImp.RepositoryImp
 import com.gochoa.wikidex.domain.model.Pokemon
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,6 +24,9 @@ class PokemonViewModel @Inject constructor(
     private val _pokemon = MutableLiveData<ApiResponseStatus<Pokemon>>()
     val pokemon: LiveData<ApiResponseStatus<Pokemon>> get() = _pokemon
 
+    private val _resultDb = MutableLiveData<ApiResponseStatus<List<Result>>>()
+    val resultDB: LiveData<ApiResponseStatus<List<Result>>> get() = _resultDb
+
     init {
         getListPokemon()
     }
@@ -30,11 +34,12 @@ class PokemonViewModel @Inject constructor(
     fun getPokemon(namePokemon: String) = viewModelScope.launch {
         _pokemon.value = ApiResponseStatus.Loading()
         repositoryImp.getPokemon(namePokemon).let {
-            when(it){
+            when (it) {
                 is ApiResponseStatus.Error -> {
                     _pokemon.value = ApiResponseStatus.Error(it.messageID)
                 }
-                is ApiResponseStatus.Loading ->{}
+
+                is ApiResponseStatus.Loading -> {}
                 is ApiResponseStatus.Success -> {
                     insertPokemon(it.data)
                     _pokemon.value = ApiResponseStatus.Success(it.data)
@@ -57,6 +62,11 @@ class PokemonViewModel @Inject constructor(
             )
             repositoryImp.insertPokemon(pokemonEntity)
         }
+    }
+
+    fun getPokemonDB() = viewModelScope.launch {
+        val ggg = repositoryImp.getAllPokemon()
+        _status.value = ApiResponseStatus.Success(ggg)
     }
 
     private fun getListPokemon() = viewModelScope.launch {

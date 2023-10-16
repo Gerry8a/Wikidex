@@ -9,4 +9,6 @@
     <string name="date_format">"dd/MM/yyyy" HH:mm</string>
     <string name="date_created">Creado el %s</string>
     <string name="pokemon_number">#%s</string>
+    <string name="no_data_db">No hay datos guardados</string>
+    <string name="no_internet">Sin conexción</string>
 </resources>

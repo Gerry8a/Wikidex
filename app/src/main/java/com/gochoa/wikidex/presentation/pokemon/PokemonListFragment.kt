@@ -41,11 +41,15 @@ class PokemonListFragment : Fragment() {
     private fun buildObservers() {
         viewModel.status.observe(requireActivity()) {
             when (it) {
-                is ApiResponseStatus.Error -> Toast.makeText(
-                    requireContext(),
-                    "Error",
-                    Toast.LENGTH_SHORT
-                ).show()
+                is ApiResponseStatus.Error -> {
+                    if (it.messageID == "501") {
+                        Toast.makeText(requireContext(),
+                            getString(R.string.no_internet), Toast.LENGTH_SHORT).show()
+                        viewModel.getPokemonDB()
+                    } else {
+                        Toast.makeText(requireContext(), it.messageID, Toast.LENGTH_SHORT).show()
+                    }
+                }
 
                 is ApiResponseStatus.Loading -> TODO()
                 is ApiResponseStatus.Success -> {
@@ -56,14 +60,19 @@ class PokemonListFragment : Fragment() {
     }
 
     private fun fillData(listPokemon: List<Pokemon>) {
-        pokemonAdapter = PokemonAdapter(listPokemon, onItemSelected = {
-            val bundle = bundleOf("pokemonName" to it.name)
-            view?.findNavController()
-                ?.navigate(R.id.action_pokemonListFragment_to_detailPokemonFragment, bundle)
-        })
-        binding.rvPokemon.apply {
-            adapter = pokemonAdapter
-            layoutManager = LinearLayoutManager(requireContext())
+        if (listPokemon.isEmpty()){
+            Toast.makeText(requireContext(), getString(R.string.no_data_db), Toast.LENGTH_SHORT).show()
+        } else {
+            pokemonAdapter = PokemonAdapter(listPokemon, onItemSelected = {
+                val bundle = bundleOf("pokemonName" to it.name)
+                view?.findNavController()
+                    ?.navigate(R.id.action_pokemonListFragment_to_detailPokemonFragment, bundle)
+            })
+            binding.rvPokemon.apply {
+                adapter = pokemonAdapter
+                layoutManager = LinearLayoutManager(requireContext())
+            }
         }
+
     }
 }

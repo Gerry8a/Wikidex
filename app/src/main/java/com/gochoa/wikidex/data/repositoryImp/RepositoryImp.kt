@@ -6,6 +6,7 @@ import com.gochoa.wikidex.data.remote.ApiResponseStatus
 import com.gochoa.wikidex.data.remote.PokedexApi
 import com.gochoa.wikidex.data.remote.makeNetworkCall
 import com.gochoa.wikidex.data.remote.mapper.Mapper
+import com.gochoa.wikidex.data.remote.response.Result
 import com.gochoa.wikidex.domain.model.Pokemon
 import com.gochoa.wikidex.domain.repository.Repository
 import com.gochoa.wikidex.domain.repository.RoomRepository
@@ -29,5 +30,10 @@ class RepositoryImp @Inject() constructor(
         }
 
     override suspend fun insertPokemon(pokemonEntity: PokemonEntity) =
-        pokemonDao.insertTask(pokemonEntity)
+        pokemonDao.insertPokemon(pokemonEntity)
+
+    override suspend fun getAllPokemon(): List<Pokemon> {
+        val listEntity = pokemonDao.getListPokemon()
+        return Mapper().fromEntityListToModelList(listEntity)
+    }
 }

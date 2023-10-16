@@ -1,5 +1,6 @@
 package com.gochoa.wikidex.data.remote.mapper
 
+import com.gochoa.wikidex.data.local.entity.PokemonEntity
 import com.gochoa.wikidex.data.remote.response.PokemonResponse
 import com.gochoa.wikidex.data.remote.response.Result
 import com.gochoa.wikidex.domain.model.Marker
@@ -50,6 +51,23 @@ class Mapper {
 
     fun fromResponseToModel(name: String, result: PokemonResponse): Pokemon {
         return fromDTOToModel(name, result)
+    }
+
+    private fun fromEntityToModel(entity: PokemonEntity): Pokemon {
+        return Pokemon(
+            entity.id,
+            entity.name,
+            entity.weight,
+            entity.height,
+            false,
+            entity.urlImage,
+            entity.fistType,
+            entity?.secondType,
+        )
+    }
+
+    fun fromEntityListToModelList(pokemonList: List<PokemonEntity>): List<Pokemon> {
+        return pokemonList.map { fromEntityToModel(it) }
     }
 
     private fun fromSnapShotToDomain(ggg: Marker): Marker {

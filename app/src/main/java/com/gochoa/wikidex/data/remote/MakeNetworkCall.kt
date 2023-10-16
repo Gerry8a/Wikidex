@@ -13,7 +13,7 @@ suspend fun <T> makeNetworkCall(
     try {
         ApiResponseStatus.Success(call())
     } catch (e: UnknownHostException) {
-        ApiResponseStatus.Error(e.message!!)
+        ApiResponseStatus.Error("501")
     } catch (e: HttpException) {
         ApiResponseStatus.Error(e.message!!)
     } catch (e: IOException){
