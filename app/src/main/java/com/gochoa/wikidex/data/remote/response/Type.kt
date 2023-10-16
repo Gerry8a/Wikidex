@@ -1,4 +1,4 @@
-package com.gochoa.wikidex.data.dto
+package com.gochoa.wikidex.data.remote.response
 
 data class Type(
     val slot: Int,

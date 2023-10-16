@@ -1,7 +1,5 @@
 package com.gochoa.wikidex.data.remote.response
 
-import com.gochoa.wikidex.data.dto.Sprites
-import com.gochoa.wikidex.data.dto.Type
 import com.squareup.moshi.Json
 
 data class PokemonResponse(
