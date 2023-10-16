@@ -46,7 +46,7 @@ class DefaultLocationClient(
 
             val request = LocationRequest.Builder(
                 Priority.PRIORITY_HIGH_ACCURACY,
-                10000
+                60000
             ).apply {
             }.build()
 

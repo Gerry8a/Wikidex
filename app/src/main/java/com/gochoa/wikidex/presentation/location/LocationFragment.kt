@@ -59,8 +59,8 @@ class LocationFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationB
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
+
+        requestLocationPermission()
 
         locationClient = DefaultLocationClient(
             requireContext(),
@@ -166,8 +166,15 @@ class LocationFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationB
             ActivityResultContracts.RequestPermission()
         ) { isGranted: Boolean ->
             locationPermissionAccepted = isGranted
+            setUpMap()
 
         }
+
+    private fun setUpMap() {
+        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+        mapFragment.getMapAsync(this)
+
+    }
 
     fun requestLocationPermission() {
         when {
@@ -176,9 +183,7 @@ class LocationFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationB
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED -> {
                 locationPermissionAccepted = true
-                val mapFragment =
-                    childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-                mapFragment.getMapAsync(this)
+                setUpMap()
             }
 
             shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) -> {

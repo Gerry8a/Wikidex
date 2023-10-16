@@ -70,7 +70,7 @@ class PokemonViewModel @Inject constructor(
     }
 
     private fun getListPokemon() = viewModelScope.launch {
-        repositoryImp.getListPokemon(10).let {
+        repositoryImp.getListPokemon(25).let {
             when (it) {
                 is ApiResponseStatus.Error -> _status.value = ApiResponseStatus.Error(it.messageID)
                 is ApiResponseStatus.Loading -> _status.value = ApiResponseStatus.Loading()
