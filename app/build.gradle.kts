@@ -105,4 +105,7 @@ dependencies {
 
     //Maps
     implementation("com.google.android.gms:play-services-maps:18.1.0")
+
+    //Firebase Firestore
+    implementation("com.google.firebase:firebase-firestore-ktx")
 }

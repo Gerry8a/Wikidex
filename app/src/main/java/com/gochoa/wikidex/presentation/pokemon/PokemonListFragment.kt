@@ -8,13 +8,12 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gochoa.wikidex.R
 import com.gochoa.wikidex.data.remote.ApiResponseStatus
 import com.gochoa.wikidex.databinding.FragmentPokemonListBinding
-import com.gochoa.wikidex.domain.Pokemon
+import com.gochoa.wikidex.domain.model.Pokemon
 import com.gochoa.wikidex.presentation.pokemon.adapter.PokemonAdapter
 import dagger.hilt.android.AndroidEntryPoint
 

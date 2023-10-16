@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gochoa.wikidex.data.remote.ApiResponseStatus
-import com.gochoa.wikidex.data.RepositoryImp
-import com.gochoa.wikidex.domain.Pokemon
+import com.gochoa.wikidex.data.repositoryImp.RepositoryImp
+import com.gochoa.wikidex.domain.model.Pokemon
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

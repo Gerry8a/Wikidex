@@ -2,9 +2,8 @@ package com.gochoa.wikidex.presentation.pokemon.adapter
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.gochoa.wikidex.R
 import com.gochoa.wikidex.databinding.ItemPokemonBinding
-import com.gochoa.wikidex.domain.Pokemon
+import com.gochoa.wikidex.domain.model.Pokemon
 import io.getstream.avatarview.coil.loadImage
 
 /**

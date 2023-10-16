@@ -1,6 +1,7 @@
 package com.gochoa.wikidex.data.remote
 
 import com.gochoa.wikidex.utils.Dictionary.BASE_URL
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -44,5 +45,9 @@ object NetworkModule {
     fun provideApiClient(retrofit: Retrofit): PokedexApi {
         return retrofit.create(PokedexApi::class.java)
     }
+
+    @Singleton
+    @Provides
+    fun provideFirebaseFirestore() = FirebaseFirestore.getInstance()
 
 }

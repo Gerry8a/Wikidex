@@ -1,11 +1,11 @@
-package com.gochoa.wikidex.data
+package com.gochoa.wikidex.data.repositoryImp
 
 import com.gochoa.wikidex.data.remote.ApiResponseStatus
 import com.gochoa.wikidex.data.remote.PokedexApi
 import com.gochoa.wikidex.data.remote.makeNetworkCall
 import com.gochoa.wikidex.data.remote.mapper.Mapper
-import com.gochoa.wikidex.domain.Pokemon
-import com.gochoa.wikidex.domain.Repository
+import com.gochoa.wikidex.domain.model.Pokemon
+import com.gochoa.wikidex.domain.repository.Repository
 import javax.inject.Inject
 
 class RepositoryImp @Inject() constructor(

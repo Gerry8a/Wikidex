@@ -12,7 +12,7 @@ import androidx.navigation.findNavController
 import com.gochoa.wikidex.R
 import com.gochoa.wikidex.data.remote.ApiResponseStatus
 import com.gochoa.wikidex.databinding.FragmentDetailPokemonBinding
-import com.gochoa.wikidex.domain.Pokemon
+import com.gochoa.wikidex.domain.model.Pokemon
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 

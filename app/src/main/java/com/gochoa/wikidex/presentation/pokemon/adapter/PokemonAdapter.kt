@@ -4,10 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gochoa.wikidex.R
-import com.gochoa.wikidex.domain.Pokemon
+import com.gochoa.wikidex.domain.model.Pokemon
 
-class PokemonAdapter (  private var taskList: List<Pokemon> = emptyList(),
-                        private val onItemSelected: (Pokemon) -> Unit,
+class PokemonAdapter (private var taskList: List<Pokemon> = emptyList(),
+                      private val onItemSelected: (Pokemon) -> Unit,
 ) : RecyclerView.Adapter<PokemonViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonViewHolder {

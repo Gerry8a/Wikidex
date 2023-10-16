@@ -1,4 +1,4 @@
-package com.gochoa.wikidex.domain
+package com.gochoa.wikidex.domain.model
 
 data class Pokemon(
     val id: Int?,
