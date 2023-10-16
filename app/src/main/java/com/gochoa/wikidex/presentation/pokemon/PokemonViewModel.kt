@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.gochoa.wikidex.data.local.entity.PokemonEntity
 import com.gochoa.wikidex.data.remote.ApiResponseStatus
 import com.gochoa.wikidex.data.repositoryImp.RepositoryImp
 import com.gochoa.wikidex.domain.model.Pokemon
@@ -34,9 +35,27 @@ class PokemonViewModel @Inject constructor(
                     _pokemon.value = ApiResponseStatus.Error(it.messageID)
                 }
                 is ApiResponseStatus.Loading ->{}
-                is ApiResponseStatus.Success -> _pokemon.value = ApiResponseStatus.Success(it.data)
+                is ApiResponseStatus.Success -> {
+                    insertPokemon(it.data)
+                    _pokemon.value = ApiResponseStatus.Success(it.data)
+                }
             }
 
+        }
+    }
+
+    private fun insertPokemon(pokemon: Pokemon) {
+        viewModelScope.launch {
+            val pokemonEntity = PokemonEntity(
+                id = pokemon.id!!,
+                name = pokemon.name!!,
+                urlImage = pokemon.urlImage!!,
+                fistType = pokemon.fistType!!,
+                secondType = pokemon?.secondType,
+                weight = pokemon.weight!!,
+                height = pokemon.height
+            )
+            repositoryImp.insertPokemon(pokemonEntity)
         }
     }
 
