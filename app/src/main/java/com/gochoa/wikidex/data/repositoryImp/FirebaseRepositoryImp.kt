@@ -34,7 +34,7 @@ class FirebaseRepositoryImp @Inject constructor(
             }
     }
 
-    override suspend fun addMarker(marker: HashMap<String, Double>) {
+    override suspend fun addMarker(marker: Marker) {
         db.collection("markers").add(marker)
             .addOnSuccessListener {
                 Log.d("ggg", "addMarker: added")

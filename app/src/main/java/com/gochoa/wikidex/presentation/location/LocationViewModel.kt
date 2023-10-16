@@ -26,7 +26,7 @@ class LocationViewModel @Inject constructor(
 //        getMarker()
     }
 
-    fun addMarker(marker: HashMap<String, Double>) = viewModelScope.launch {
+    fun addMarker(marker: Marker) = viewModelScope.launch {
         firebaseRepositoryImp.addMarker(marker)
     }
 

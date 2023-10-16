@@ -7,5 +7,5 @@ import com.google.firebase.firestore.QuerySnapshot
 
 interface FirebaseRepository {
     suspend fun getMarkers(): ApiResponseStatus<Task<QuerySnapshot>>
-    suspend fun addMarker(marker: HashMap<String, Double>)
+    suspend fun addMarker(marker: Marker)
 }
