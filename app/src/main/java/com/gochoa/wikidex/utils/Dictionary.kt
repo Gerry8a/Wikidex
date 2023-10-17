@@ -6,4 +6,7 @@ object Dictionary {
     //DB
     const val POKEMON_TABLE = "pokemon_table"
     const val POKEMON_DATABASE = "pokemon_database.db"
+
+    const val NOTIFICATION_CHANNEL_ID = "location"
+    const val NOTIFICATION_CHANNEL_NAME = "Location"
 }

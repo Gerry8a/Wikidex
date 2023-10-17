@@ -2,6 +2,7 @@ package com.gochoa.wikidex.presentation.location
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
@@ -9,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -19,6 +21,7 @@ import com.gochoa.wikidex.R
 import com.gochoa.wikidex.data.remote.ApiResponseStatus
 import com.gochoa.wikidex.data.service.DefaultLocationClient
 import com.gochoa.wikidex.data.service.LocationClient
+import com.gochoa.wikidex.data.service.LocationService
 import com.gochoa.wikidex.databinding.FragmentLocationBinding
 import com.gochoa.wikidex.domain.model.Marker
 import com.gochoa.wikidex.presentation.location.adapter.LocationAdapter
@@ -33,7 +36,13 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 
 @AndroidEntryPoint
@@ -48,6 +57,7 @@ class LocationFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationB
     private lateinit var locationClient: LocationClient
     private lateinit var locationAdapter: LocationAdapter
     private var listMarkes = mutableListOf<Marker>()
+    private var serviceOn = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,14 +71,52 @@ class LocationFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationB
         super.onViewCreated(view, savedInstanceState)
 
         requestLocationPermission()
+        onClickEvents()
 
-        locationClient = DefaultLocationClient(
-            requireContext(),
-            LocationServices.getFusedLocationProviderClient(requireContext())
-        )
-        addMarker()
+
         getMarkers()
-        buildObservers()
+    }
+
+    private fun onClickEvents() {
+        binding.btnService.setOnClickListener {
+            if (!serviceOn) {
+                serviceOn = true
+                sendLocation()
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.start_service), Toast.LENGTH_SHORT
+                ).show()
+                Log.d("ggg", "sendLocation: iniciado $serviceOn")
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.end_service), Toast.LENGTH_SHORT
+                ).show()
+                Log.d("ggg", "sendLocation: terminado $serviceOn")
+            }
+        }
+    }
+
+    private fun sendLocation() {
+        val job= lifecycleScope.launch(Dispatchers.IO) {
+            while (serviceOn) {
+                ensureActive()
+                if (serviceOn) {
+                    val result = locationClient.getLocationUpdates()
+                    result.collect { location ->
+                        val makerModel = Marker().apply {
+                            latitude = location.latitude
+                            longitude = location.longitude
+                            date = getDate(requireContext())
+                        }
+                        viewModel.addMarker(makerModel)
+                    }
+                }
+                serviceOn = false
+                cancel()
+            }
+            Log.d("ggg", "sendLocation: cancelado")
+        }
     }
 
     private fun addMarker() {
@@ -97,13 +145,12 @@ class LocationFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationB
                         return@addSnapshotListener
                     }
                     for (doc in value!!) {
+                        listMarkes.clear()
                         for (document in value) {
                             val marker = document.toObject(Marker::class.java)
                             listMarkes.add(marker)
                             printMarkers(marker)
                         }
-//                        printMarkers(markers)
-//                        fillList(markers)
                     }
                 }
         }
@@ -165,7 +212,7 @@ class LocationFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationB
         registerForActivityResult(
             ActivityResultContracts.RequestPermission()
         ) { isGranted: Boolean ->
-            locationPermissionAccepted = isGranted
+            locationPermissionAccepted = true
             setUpMap()
 
         }
@@ -174,6 +221,10 @@ class LocationFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationB
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
+        locationClient = DefaultLocationClient(
+            requireContext(),
+            LocationServices.getFusedLocationProviderClient(requireContext())
+        )
     }
 
     fun requestLocationPermission() {
@@ -193,10 +244,6 @@ class LocationFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationB
                 requestPermissionLauncher.launch(
                     Manifest.permission.ACCESS_FINE_LOCATION
                 )
-//                Toast.makeText(
-//                    requireContext(),
-//                    getString(R.string.permission_needed), Toast.LENGTH_SHORT
-//                ).show()
             }
 
             else -> {
@@ -206,6 +253,4 @@ class LocationFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMyLocationB
             }
         }
     }
-
-
 }

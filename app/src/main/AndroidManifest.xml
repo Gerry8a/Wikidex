@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -22,6 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Wikidex"
         tools:targetApi="31">
+        <service android:name=".data.service.LocationService" android:foregroundServiceType="location"/>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAFyQNJtn8_Ng92e7-pa0Hbe7Ela2qhb28" />

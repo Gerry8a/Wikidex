@@ -11,4 +11,6 @@
     <string name="pokemon_number">#%s</string>
     <string name="no_data_db">No hay datos guardados</string>
     <string name="no_internet">Sin conexción</string>
+    <string name="end_service">Servicio terminado</string>
+    <string name="start_service">Iniciando servicio\n</string>
 </resources>
